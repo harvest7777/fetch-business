@@ -25,7 +25,7 @@ func LoadConfig() *Config {
 		log.Printf("Warning: Cannot find lite api key")
 	}
 
-	port := "8080"
+	port := "8081"
 
 	// Check if using sandbox key
 	isSandbox := len(apiKey) >= 5 && apiKey[:5] == "sand_"
