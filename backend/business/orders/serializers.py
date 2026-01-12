@@ -19,6 +19,10 @@ from rest_framework import serializers
 from .models import Order
 
 
+class HealthResponseSerializer(serializers.Serializer):
+    status = serializers.CharField(default="healthy", read_only=True)
+
+
 class CreateOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order

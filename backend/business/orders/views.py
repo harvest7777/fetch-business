@@ -5,15 +5,20 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .serializers import CreateOrderSerializer
+from .serializers import CreateOrderSerializer, HealthResponseSerializer
 from drf_spectacular.utils import extend_schema
 from drf_spectacular.types import OpenApiTypes
 
 
 
-# Create your views here.
+@extend_schema(
+    responses={
+        200: HealthResponseSerializer,
+    },
+)
+@api_view(["GET"])
 def health(request):
-    return HttpResponse(b"Healthy")
+    return Response({"status": "healthy"})
 
 @extend_schema(
     request=CreateOrderSerializer,
