@@ -6,12 +6,22 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .serializers import CreateOrderSerializer
+from drf_spectacular.utils import extend_schema
+from drf_spectacular.types import OpenApiTypes
+
 
 
 # Create your views here.
 def health(request):
     return HttpResponse(b"Healthy")
 
+@extend_schema(
+    request=CreateOrderSerializer,
+    responses={
+        201: CreateOrderSerializer,
+        400: OpenApiTypes.OBJECT,
+    },
+)
 @api_view(["POST"])
 def create_order(request):
     serializer = CreateOrderSerializer(data=request.data)
