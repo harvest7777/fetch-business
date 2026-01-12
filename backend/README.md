@@ -12,3 +12,9 @@ cd business
 python manage.py migrate
 python manage.py runserver
 ```
+
+## API Documentation
+
+Once the server is running, you can view the interactive Swagger API documentation at:
+
+- `http://localhost:8000/api/docs/`
