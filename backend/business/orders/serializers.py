@@ -20,10 +20,16 @@ from .models import Order
 
 
 class HealthResponseSerializer(serializers.Serializer):
-    status = serializers.CharField(default="healthy", read_only=True)
+    status = serializers.CharField(default="healthy")
 
 
 class CreateOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ["agent_id", "item"]
+
+
+class OrderResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ["id", "agent_id", "item"]

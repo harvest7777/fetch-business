@@ -5,7 +5,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .serializers import CreateOrderSerializer, HealthResponseSerializer
+from .serializers import (
+    CreateOrderSerializer,
+    HealthResponseSerializer,
+    OrderResponseSerializer,
+)
 from drf_spectacular.utils import extend_schema
 from drf_spectacular.types import OpenApiTypes
 
@@ -18,12 +22,13 @@ from drf_spectacular.types import OpenApiTypes
 )
 @api_view(["GET"])
 def health(request):
-    return Response({"status": "healthy"})
+    serializer = HealthResponseSerializer({"status": "healthy"})
+    return Response(serializer.data)
 
 @extend_schema(
     request=CreateOrderSerializer,
     responses={
-        201: CreateOrderSerializer,
+        201: OrderResponseSerializer,
         400: OpenApiTypes.OBJECT,
     },
 )
@@ -38,12 +43,9 @@ def create_order(request):
         )
 
     order = serializer.save()
+    response_serializer = OrderResponseSerializer(order)
 
     return Response(
-        {
-            "id": order.id,
-            "agent_id": order.agent_id,
-            "item": order.item,
-        },
+        response_serializer.data,
         status=status.HTTP_201_CREATED,
     )
