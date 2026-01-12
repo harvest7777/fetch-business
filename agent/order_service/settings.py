@@ -5,6 +5,6 @@ ORDER_SERVICE_BASE_URL = os.environ.get(
     "http://localhost:8000",
 )
 
-DEFAULT_TIMEOUT = float(
+ORDER_SERVICE_TIMEOUT = float(
     os.environ.get("ORDER_SERVICE_TIMEOUT", 5.0)
 )

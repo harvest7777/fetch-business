@@ -8,14 +8,14 @@ for type-safe communication between agents and the backend service.
 from uagents import Model
 
 
-class CreateOrderRequest(Model):
+class CreateOrder(Model):
     """Request model for creating an order (matches CreateOrderSerializer)."""
     
     agent_id: str
     item: str
 
 
-class OrderResponse(Model):
+class Order(Model):
     """Response model for order creation (matches OrderResponseSerializer)."""
     
     id: int
