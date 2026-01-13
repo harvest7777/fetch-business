@@ -21,15 +21,14 @@
  * - Reusable across components
  */
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createOrder } from "./orders.client";
 import type { CreateOrderRequest, Order } from "./orders.types";
-import { QueryClient } from "@tanstack/react-query";
 import { orderKeys } from "./orders.keys";
 
-const queryClient = new QueryClient();
-
 export function useCreateOrder() {
+  const queryClient = useQueryClient();
+
   return useMutation<Order, Error, CreateOrderRequest>({
     mutationFn: createOrder,
     onSuccess: () => {

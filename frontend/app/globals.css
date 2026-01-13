@@ -6,6 +6,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-app-purple-muted: var(--app-purple-muted);
+  --color-app-purple-background: var(--app-purple-background);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --animate-rippling: rippling var(--duration) ease-out;
@@ -46,12 +48,12 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
   @keyframes rippling {
-  0% {
-    opacity: 1;
+    0% {
+      opacity: 1;
     }
-  100% {
-    transform: scale(2);
-    opacity: 0;
+    100% {
+      transform: scale(2);
+      opacity: 0;
     }
   }
   @keyframes border-spin {
@@ -60,11 +62,22 @@
     }
   }
   --animate-border-spin: border-spin 2s linear infinite;
+  @keyframes shine {
+    0% {
+      transform: translateX(-100%) rotate(25deg);
+    }
+    50%,
+    100% {
+      transform: translateX(200%) rotate(25deg);
+    }
+  }
 }
 
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
+  --app-purple-muted: #e9d5ff;
+  --app-purple-background: #faf5ff;
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);

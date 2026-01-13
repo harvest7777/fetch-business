@@ -90,22 +90,32 @@ export default function InteractFetchAgent() {
         const errorMessage: Message = {
           id: crypto.randomUUID(),
           role: "error",
-          content: `Connection failed: ${response.status} ${response.statusText}. ${data.details || data.message || ""}`,
+          content: `Connection failed: ${response.status} ${
+            response.statusText
+          }. ${data.details || data.message || ""}`,
           timestamp: new Date(),
         };
         setMessages((prev) => [...prev, errorMessage]);
       }
     } catch (error) {
       console.error("=== FETCH ERROR ===");
-      console.error("Error type:", error instanceof Error ? error.constructor.name : typeof error);
-      console.error("Error message:", error instanceof Error ? error.message : String(error));
+      console.error(
+        "Error type:",
+        error instanceof Error ? error.constructor.name : typeof error
+      );
+      console.error(
+        "Error message:",
+        error instanceof Error ? error.message : String(error)
+      );
       console.error("Full error:", error);
 
       // Show detailed error in UI
       const errorMessage: Message = {
         id: crypto.randomUUID(),
         role: "error",
-        content: `Network error: ${error instanceof Error ? error.message : String(error)}. Make sure the agent is running: cd agent && python agent.py`,
+        content: `Network error: ${
+          error instanceof Error ? error.message : String(error)
+        }. Make sure the agent is running: cd agent && python agent.py`,
         timestamp: new Date(),
       };
 
@@ -162,7 +172,8 @@ export default function InteractFetchAgent() {
                     ? "Error"
                     : msg.role === "debug"
                     ? "Debug"
-                    : "You"}:
+                    : "You"}
+                  :
                 </span>{" "}
                 {msg.content}
                 <div className="text-xs text-zinc-400 mt-1">
