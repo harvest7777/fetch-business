@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { RippleButton } from "./ui/ripple-button";
+import { RippleButton } from "@/components/ui/ripple-button";
 
 interface Message {
   id: string;

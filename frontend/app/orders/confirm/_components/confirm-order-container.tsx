@@ -4,11 +4,10 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { OrderForm } from "../../_components/order-form";
 import { useCreateOrder } from "@/features/orders/orders.mutations";
-import type { Order } from "@/features/orders/orders.types";
+import type { CreateOrderRequest } from "@/features/orders/orders.types";
 
-const HARDCODED_ORDER: Partial<Order> = {
-  agent_id: "agent-001",
-  item: "Premium Widget Bundle",
+const HARDCODED_ORDER: CreateOrderRequest = {
+  item: "Matcha Latte",
 };
 
 export function ConfirmOrderContainer() {
@@ -27,9 +26,8 @@ export function ConfirmOrderContainer() {
     }
   }, [createOrderMutation.isError, router]);
 
-  const handleSubmit = (data: Omit<Order, "id">) => {
+  const handleSubmit = (data: CreateOrderRequest) => {
     createOrderMutation.mutate({
-      agent_id: data.agent_id,
       item: data.item,
     });
   };

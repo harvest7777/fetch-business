@@ -13,7 +13,7 @@ export default function Home() {
             Place Order
           </RippleButton>
         </Link>
-        <InteractFetchAgent />
+        {/* <InteractFetchAgent /> */}
       </div>
     </main>
   );

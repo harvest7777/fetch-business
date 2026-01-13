@@ -18,6 +18,5 @@ export interface Order {
  * Request payload for creating a new order
  */
 export interface CreateOrderRequest {
-  agent_id: string;
   item: string;
 }
