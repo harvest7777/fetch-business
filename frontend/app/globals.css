@@ -54,6 +54,12 @@
     opacity: 0;
     }
   }
+  @keyframes border-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  --animate-border-spin: border-spin 2s linear infinite;
 }
 
 :root {
