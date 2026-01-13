@@ -45,6 +45,7 @@ async def startup_handler(ctx: Context):
 # Message Handler - Process received messages and send acknowledgements
 @chat_proto.on_message(ChatMessage)
 async def handle_message(ctx: Context, sender: str, msg: ChatMessage):
+    ctx.logger.info("Received chat message")
     for item in msg.content:
         if isinstance(item, TextContent):
             # Log received message
