@@ -11,7 +11,6 @@ from uagents import Model
 class CreateOrder(Model):
     """Request model for creating an order (matches CreateOrderSerializer)."""
     
-    agent_id: str
     item: str
 
 

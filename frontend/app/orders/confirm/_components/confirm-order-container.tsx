@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { OrderForm } from "../../_components/order-form";
 import { useCreateOrder } from "@/features/orders/orders.mutations";
@@ -14,22 +13,14 @@ export function ConfirmOrderContainer() {
   const router = useRouter();
   const createOrderMutation = useCreateOrder();
 
-  useEffect(() => {
-    if (createOrderMutation.isSuccess) {
-      router.push("/orders/success");
-    }
-  }, [createOrderMutation.isSuccess, router]);
-
-  useEffect(() => {
-    if (createOrderMutation.isError) {
-      router.push("/orders/failed");
-    }
-  }, [createOrderMutation.isError, router]);
-
   const handleSubmit = (data: CreateOrderRequest) => {
-    createOrderMutation.mutate({
-      item: data.item,
-    });
+    createOrderMutation.mutate(
+      { item: data.item },
+      {
+        onSuccess: () => router.push("/orders/success"),
+        onError: () => router.push("/orders/failed"),
+      }
+    );
   };
 
   return (

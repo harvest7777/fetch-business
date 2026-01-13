@@ -20,11 +20,11 @@ class OrderServiceClient:
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
 
-    def create_order(self, order: CreateOrder) -> Order:
+    def create_order(self, order: CreateOrder, agent_id: str) -> Order:
         response = requests.post(
             f"{self.base_url}/orders/",
             json={
-                "agent_id": order.agent_id,
+                "agent_id": agent_id,
                 "item": order.item,
             },
             timeout=self.timeout,
