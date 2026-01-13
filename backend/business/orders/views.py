@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -11,7 +10,8 @@ from .serializers import (
     OrderResponseSerializer,
     AgentInteractSerializer,
 )
-from drf_spectacular.utils import extend_schema
+from .models import Order
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from drf_spectacular.types import OpenApiTypes
 import logging
 
@@ -56,48 +56,23 @@ def create_order(request):
 
 
 @extend_schema(
-    request=AgentInteractSerializer,
+    parameters=[
+        OpenApiParameter(
+            name="agent_id",
+            type=str,
+            location=OpenApiParameter.PATH,
+            description="The agent ID to filter orders by",
+        ),
+    ],
     responses={
-        200: OpenApiTypes.OBJECT,
-        400: OpenApiTypes.OBJECT,
+        200: OrderResponseSerializer(many=True),
     },
 )
-@api_view(["POST"])
-def agent_interact(request):
+@api_view(["GET"])
+def get_orders_by_agent(request, agent_id):
     """
-    Endpoint for interacting with the Fetch.ai agent.
-
-    For now, this is a simple echo endpoint. In the future, this will
-    communicate with the agent using the uagents protocol.
+    Get all orders for a specific agent.
     """
-    logger.info("=== DJANGO BACKEND: Agent Interact ===")
-    logger.info(f"Received request at: {request.META.get('HTTP_HOST')}")
-    logger.info(f"Request data: {request.data}")
-
-    serializer = AgentInteractSerializer(data=request.data)
-
-    if not serializer.is_valid():
-        logger.error(f"Validation errors: {serializer.errors}")
-        return Response(
-            serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST,
-        )
-
-    message = serializer.validated_data.get("message")
-    previous_messages = serializer.validated_data.get("previousMessages", [])
-
-    logger.info(f"Processing message: {message}")
-    logger.info(f"Previous messages count: {len(previous_messages)}")
-
-    # TODO: Implement actual agent communication using uagents protocol
-    # For now, return a simple acknowledgment
-    response_data = {
-        "message": f"Backend received: '{message}'. Agent communication will be implemented soon.",
-        "status": "acknowledged",
-        "agent_id": "california-coffee-shop",  # From .env
-        "timestamp": request.META.get("HTTP_DATE", ""),
-    }
-
-    logger.info(f"Sending response: {response_data}")
-
-    return Response(response_data, status=status.HTTP_200_OK)
+    orders = Order.objects.filter(agent_id=agent_id)
+    serializer = OrderResponseSerializer(orders, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)

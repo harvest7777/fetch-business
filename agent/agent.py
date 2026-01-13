@@ -7,6 +7,8 @@ from agent.order_service.models import CreateOrder, Order
 from agent.order_service.client import OrderServiceClient
 from time import sleep
 
+from agent.utils import format_orders
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -55,10 +57,12 @@ async def handle_message(ctx: Context, sender: str, msg: ChatMessage):
             )
             await ctx.send(sender, ack)
             
+            current_orders = client.get_orders_by_agent_id(agent.address)
+            
             # Send response message
             response = ChatMessage(
                 timestamp=datetime.now(),
-                content=[TextContent(type="text", text="Hello from Agent1!")]
+                content=[TextContent(type="text", text=format_orders(current_orders))]
             )
             await ctx.send(sender, response)
 

@@ -47,3 +47,25 @@ class OrderServiceClient:
 
         # ---- success path ----
         return Order(**response.json())
+
+    def get_orders_by_agent_id(self, agent_id: str) -> list[Order]:
+        response = requests.get(
+            f"{self.base_url}/orders/agent_id/{agent_id}",
+            timeout=self.timeout,
+        )
+
+        if response.status_code == 400:
+            raise ValidationError(response.json())
+
+        if response.status_code == 401:
+            raise UnauthorizedError()
+
+        if response.status_code == 404:
+            raise NotFoundError()
+
+        if response.status_code >= 500:
+            raise ServerError()
+
+        response.raise_for_status()
+
+        return [Order(**order) for order in response.json()]

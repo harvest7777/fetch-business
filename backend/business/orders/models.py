@@ -4,3 +4,5 @@ from django.db import models
 class Order(models.Model):
     agent_id = models.CharField(max_length=255)
     item = models.CharField(max_length=255)
+
+    objects = models.Manager()
