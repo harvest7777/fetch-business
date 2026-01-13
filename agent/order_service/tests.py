@@ -10,7 +10,7 @@ class TestOrderServiceClient(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures."""
         self.client = OrderServiceClient(base_url="http://localhost:8000")
-        self.test_order = CreateOrder(agent_id="test-agent-123", item="coffee")
+        self.test_order = CreateOrder(item="coffee")
 
     @patch("agent.order_service.client.requests.post")
     def test_create_order_success(self, mock_post):
@@ -26,7 +26,7 @@ class TestOrderServiceClient(unittest.TestCase):
         mock_post.return_value = mock_response
 
         # Create order
-        result = self.client.create_order(self.test_order)
+        result = self.client.create_order(self.test_order, "test-agent-123")
 
         # Verify request was made correctly
         mock_post.assert_called_once_with(
@@ -52,7 +52,7 @@ class TestOrderServiceClient(unittest.TestCase):
 
         # Attempt to create order
         with self.assertRaises(ValidationError):
-            self.client.create_order(self.test_order)
+            result = self.client.create_order(self.test_order, "test-agent-123")
 
 
 if __name__ == "__main__":
