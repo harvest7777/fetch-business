@@ -6,7 +6,7 @@ import { motion, type MotionProps } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const animationProps: MotionProps = {
-  initial: { "--x": "100%", scale: 0.8 },
+  initial: { "--x": "100%", scale: 1 },
   animate: { "--x": "-100%", scale: 1 },
   whileTap: { scale: 0.95 },
   transition: {
