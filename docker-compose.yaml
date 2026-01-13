@@ -1,0 +1,8 @@
+version: '3.9'
+
+services:
+  backend:
+    build: ./agent
+
+    ports:
+      - "8001:8001"
