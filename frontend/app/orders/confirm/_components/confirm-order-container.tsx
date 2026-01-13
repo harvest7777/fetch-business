@@ -1,6 +1,8 @@
 "use client";
 
-import { OrderForm } from "../../(orders)/order-form";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { OrderForm } from "../../_components/order-form";
 import { useCreateOrder } from "@/features/orders/orders.mutations";
 import type { Order } from "@/features/orders/orders.types";
 
@@ -10,7 +12,20 @@ const HARDCODED_ORDER: Partial<Order> = {
 };
 
 export function ConfirmOrderContainer() {
+  const router = useRouter();
   const createOrderMutation = useCreateOrder();
+
+  useEffect(() => {
+    if (createOrderMutation.isSuccess) {
+      router.push("/orders/success");
+    }
+  }, [createOrderMutation.isSuccess, router]);
+
+  useEffect(() => {
+    if (createOrderMutation.isError) {
+      router.push("/orders/failed");
+    }
+  }, [createOrderMutation.isError, router]);
 
   const handleSubmit = (data: Omit<Order, "id">) => {
     createOrderMutation.mutate({
@@ -24,18 +39,6 @@ export function ConfirmOrderContainer() {
       <h1 className="mb-3 text-xl font-bold">Confirm Order</h1>
 
       <OrderForm order={HARDCODED_ORDER} onSubmit={handleSubmit} className="" />
-
-      {createOrderMutation.isSuccess && (
-        <p className="mt-4 text-sm text-green-600">
-          Order created successfully!
-        </p>
-      )}
-
-      {createOrderMutation.isError && (
-        <p className="mt-4 text-sm text-destructive">
-          Error: {createOrderMutation.error.message}
-        </p>
-      )}
     </div>
   );
 }
