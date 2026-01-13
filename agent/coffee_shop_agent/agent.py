@@ -7,7 +7,7 @@ from agent.order_service.models import CreateOrder, Order
 from agent.order_service.client import OrderServiceClient
 from time import sleep
 
-from agent.utils import format_orders
+from agent.coffee_shop_agent.utils import format_orders
 
 # Load environment variables from .env file
 load_dotenv()

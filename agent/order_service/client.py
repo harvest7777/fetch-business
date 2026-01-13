@@ -1,3 +1,11 @@
+"""
+Order Service Client
+
+HTTP client for communicating with the Django order backend.
+Used by uagents as a clean interface to perform database operations
+without direct database access.
+"""
+
 import requests
 
 from agent.order_service.errors import (
