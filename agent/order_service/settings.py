@@ -2,7 +2,7 @@ import os
 
 ORDER_SERVICE_BASE_URL = os.environ.get(
     "ORDER_SERVICE_BASE_URL",
-    "http://localhost:8000",
+    "http://localhost:8000/api",
 )
 
 ORDER_SERVICE_TIMEOUT = float(

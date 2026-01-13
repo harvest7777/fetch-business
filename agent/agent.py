@@ -2,7 +2,9 @@ import os
 from datetime import datetime
 from uuid import uuid4
 from dotenv import load_dotenv
-from uagents import Agent, Protocol, Context, Model
+from uagents import Agent, Protocol, Context
+from agent.order_service.models import CreateOrder, Order
+from agent.order_service.client import OrderServiceClient
 from time import sleep
 
 # Load environment variables from .env file
@@ -15,6 +17,8 @@ from uagents_core.contrib.protocols.chat import (
     TextContent,
     chat_protocol_spec,
 )
+
+client = OrderServiceClient()
 
 agent = Agent(
     name=os.getenv("AGENT_NAME", "mock-coffee-shop"),
@@ -62,6 +66,14 @@ async def handle_message(ctx: Context, sender: str, msg: ChatMessage):
 @chat_proto.on_message(ChatAcknowledgement)
 async def handle_acknowledgement(ctx: Context, sender: str, msg: ChatAcknowledgement):
     ctx.logger.info(f"Received acknowledgement from {sender} for message: {msg.acknowledged_msg_id}")
+
+@agent.on_rest_post(endpoint="/agent/order", request=CreateOrder, response=Order)
+async def handle_create_order(ctx: Context, request):
+    ctx.logger.info("Received order request")
+    new_order = client.create_order(request)
+    ctx.logger.info(f"New order created {new_order.json()}")
+    return new_order
+
 
 
 
