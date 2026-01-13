@@ -33,3 +33,13 @@ class OrderResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ["id", "agent_id", "item"]
+
+
+class AgentInteractSerializer(serializers.Serializer):
+    """Serializer for agent interaction requests."""
+    message = serializers.CharField(required=True)
+    previousMessages = serializers.ListField(
+        child=serializers.DictField(),
+        required=False,
+        default=list
+    )
