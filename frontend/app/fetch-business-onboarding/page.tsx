@@ -1,4 +1,5 @@
 import InteractFetchAgent from "./components/InteractFetchAgent";
+import { RippleButton } from "./components/ui/ripple-button";
 
 export default function Home() {
   return (
@@ -6,6 +7,7 @@ export default function Home() {
       <div className="flex flex-col items-center gap-8 text-center">
         <h1 className="text-3xl font-semibold">Fetch Business</h1>
         <InteractFetchAgent />
+        <RippleButton />
       </div>
     </main>
   );
