@@ -22,7 +22,7 @@ import { handleResponse } from "./orders.utils";
  * Base API URL for the order agent endpoint - should be configured via environment variables
  */
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001/api/";
+  process.env.NEXT_PUBLIC_AGENT_BASE_URL || "http://localhost:8001/agent/api/";
 
 /**
  * Create a new order via HTTP request to the order agent endpoint
@@ -43,4 +43,21 @@ export async function createOrder(
   });
 
   return handleResponse<Order>(response);
+}
+
+/**
+ * Fetch all orders via HTTP request to the order agent endpoint
+ *
+ * @returns Promise resolving to array of orders
+ * @throws Error if the request fails
+ */
+export async function getOrders(): Promise<Order[]> {
+  const response = await fetch(`${API_BASE_URL}/orders`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return handleResponse<Order[]>(response);
 }
