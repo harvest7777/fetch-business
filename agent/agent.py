@@ -67,7 +67,7 @@ async def handle_message(ctx: Context, sender: str, msg: ChatMessage):
 async def handle_acknowledgement(ctx: Context, sender: str, msg: ChatAcknowledgement):
     ctx.logger.info(f"Received acknowledgement from {sender} for message: {msg.acknowledged_msg_id}")
 
-@agent.on_rest_post(endpoint="/agent/order", request=CreateOrder, response=Order)
+@agent.on_rest_post(endpoint="/agent/api/order", request=CreateOrder, response=Order)
 async def handle_create_order(ctx: Context, request):
     ctx.logger.info("Received order request")
     new_order = client.create_order(request)
