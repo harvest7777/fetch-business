@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 8001
 
-CMD ["python3", "agent/agent.py"]
+CMD ["python3", "coffee_shop_agent/agent.py"]

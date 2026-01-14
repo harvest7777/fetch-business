@@ -1,8 +1,16 @@
 version: '3.9'
 
 services:
-  backend:
+  agent-server:
     build: ./agent
 
     ports:
       - "8001:8001"
+  
+
+  backend-server:
+    build: ./backend
+
+    ports:
+      - "8000:8000"
+  
