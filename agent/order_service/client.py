@@ -8,15 +8,15 @@ without direct database access.
 
 import requests
 
-from agent.order_service.errors import (
+from order_service.errors import (
     OrderServiceError,
     ValidationError,
     UnauthorizedError,
     NotFoundError,
     ServerError,
 )
-from agent.order_service.models import CreateOrder, Order
-from agent.order_service.settings import ORDER_SERVICE_BASE_URL, ORDER_SERVICE_TIMEOUT
+from order_service.models import CreateOrder, Order
+from order_service.settings import ORDER_SERVICE_BASE_URL, ORDER_SERVICE_TIMEOUT
 
 
 class OrderServiceClient:

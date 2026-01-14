@@ -2,12 +2,12 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-COPY requirements.txt ./backend/requirements.txt
+COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r ./backend/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
 EXPOSE 8000
 
-CMD ["python", "business/manage.py"]
+CMD ["python3", "-m", "business.manage"]
