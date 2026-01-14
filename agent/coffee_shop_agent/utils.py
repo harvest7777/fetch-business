@@ -1,6 +1,6 @@
 # Utils for the agent
 
-from agent.order_service.models import Order
+from order_service.models import Order
 
 
 def format_orders(orders: list[Order]) -> str:

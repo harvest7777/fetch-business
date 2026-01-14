@@ -1,9 +1,9 @@
 import unittest
 from unittest.mock import patch, Mock
 
-from agent.order_service.client import OrderServiceClient
-from agent.order_service.models import CreateOrder, Order
-from agent.order_service.errors import ValidationError
+from order_service.client import OrderServiceClient
+from order_service.models import CreateOrder, Order
+from order_service.errors import ValidationError
 
 
 class TestOrderServiceClient(unittest.TestCase):

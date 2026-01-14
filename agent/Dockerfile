@@ -2,12 +2,12 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-COPY requirements.txt ./agent/requirements.txt
+COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r ./agent/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
 EXPOSE 8001
 
-CMD ["python3", "coffee_shop_agent/agent.py"]
+CMD ["python3", "-m","coffee_shop_agent.agent"]
