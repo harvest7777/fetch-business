@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["python", "orders/manage.py"]
+CMD ["python", "business/manage.py"]
