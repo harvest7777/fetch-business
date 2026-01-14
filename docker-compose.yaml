@@ -9,7 +9,7 @@ services:
   
 
   backend-server:
-    build: ./backend/business/orders
+    build: ./backend
 
     ports:
       - "8000:8000"

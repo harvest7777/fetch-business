@@ -4,10 +4,10 @@ WORKDIR /app
 
 COPY requirements.txt ./backend/requirements.txt
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r ./backend/requirements.txt
 
-COPY ..
+COPY . .
 
 EXPOSE 8000
 
-CMD ["python", "backend/orders/manage.py"]
+CMD ["python", "orders/manage.py"]
